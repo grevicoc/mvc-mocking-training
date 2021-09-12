@@ -1,0 +1,17 @@
+{
+  "count": 6,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "name": "Tatooine",
+      "rotation_period": "23",
+      "orbital_period": "304"
+    },
+    {
+      "name": "Alderaan",
+      "rotation_period": "24",
+      "orbital_period": "364"
+    }
+  ]
+}

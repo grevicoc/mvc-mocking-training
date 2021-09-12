@@ -1,16 +1,16 @@
 package ardi.springintro.service;
 
-import ardi.springintro.model.Movie;
+import ardi.springintro.model.Film;
 
 import java.util.List;
 
 public interface MovieProvider {
 
-    public List<Movie> getMovies();
+    public List<Film> getMovies();
 
-    public Movie getMovie(int index);
+    public Film getMovie(int index);
 
-    public boolean saveMovie(Movie movie);
+    public boolean saveMovie(Film film);
 
     public boolean deleteMovie();
 

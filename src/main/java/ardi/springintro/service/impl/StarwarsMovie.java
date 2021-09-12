@@ -1,17 +1,16 @@
 package ardi.springintro.service.impl;
 
-import ardi.springintro.model.Movie;
-import ardi.springintro.model.SwapiFilm;
+import ardi.springintro.model.Film;
+import ardi.springintro.model.FilmResponse;
 import ardi.springintro.service.MovieProvider;
 import ardi.springintro.service.SwapiClient;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StarwarsMovie implements MovieProvider {
 
-    List<Movie> movies = new ArrayList<>();
+    List<Film> films = new ArrayList<>();
     /*
     *  return daftar movie starwars
     *
@@ -24,37 +23,38 @@ public class StarwarsMovie implements MovieProvider {
     }
 
     @Override
-    public List<Movie> getMovies(){
-        List<SwapiFilm> swapiFilms = swapiClient.getFilms();
-        List<Movie> response = new ArrayList<>();
-//        for (int i = 0; i < swapiFilms.size(); i++) {
-//            SwapiFilm swapiFilm = swapiFilms.get(i);
-//        }
-        for (SwapiFilm swapiFilm: swapiFilms) {
-            Movie movie = new Movie();
-            movie.setEpisode(swapiFilm.getEpisode_id());
-            movie.setJudul(swapiFilm.getTitle());
+    public List<Film> getMovies(){
+        List<FilmResponse> filmResponses = swapiClient.getFilms();
+        List<Film> response = new ArrayList<>();
 
-            response.add(movie);
+        for (FilmResponse filmResponse : filmResponses) {
+            Film film = new Film();
+            film.setEpisode(filmResponse.getEpisode_id());
+            film.setJudul(filmResponse.getTitle());
+
+            response.add(film);
         }
 
         return response;
     }
 
     @Override
-    public Movie getMovie(int index) {
-        return movies.get(index-1);
+    public Film getMovie(int index) {
+        FilmResponse filmResponse = swapiClient.getFilms(index);
+        Film response = new Film(filmResponse.getTitle(), filmResponse.getEpisode_id());
+
+        return response;
     }
 
     @Override
-    public boolean saveMovie(Movie movie) {
-        movies.add(movie);
+    public boolean saveMovie(Film film) {
+        films.add(film);
         return true;
     }
 
     @Override
     public boolean deleteMovie() {
-        movies.clear();
+        films.clear();
         return true;
     }
 }

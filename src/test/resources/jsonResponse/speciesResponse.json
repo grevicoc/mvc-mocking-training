@@ -1,0 +1,17 @@
+{
+  "count": 6,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "name": "Human",
+      "classification": "mammal",
+      "designation": "sentient"
+    },
+    {
+      "name": "Droid",
+      "classification": "artificial",
+      "designation": "sentient"
+    }
+  ]
+}

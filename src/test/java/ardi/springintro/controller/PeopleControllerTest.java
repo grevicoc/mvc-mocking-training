@@ -2,6 +2,7 @@ package ardi.springintro.controller;
 
 import ardi.springintro.SpringIntroApplication;
 import ardi.springintro.model.Film;
+import ardi.springintro.model.People;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -28,11 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SpringIntroApplication.class)
 @AutoConfigureWebTestClient
-class MoviesControllerTest {
-
-  public static final String MOVIE_TESTING_1 = "Movie testing 1";
-
-  String TESTING = "WOLOLO";
+class PeopleControllerTest {
 
   @Autowired
   WebTestClient client;
@@ -53,12 +50,36 @@ class MoviesControllerTest {
 
         String filepath = "src/test/resources/jsonResponse/";
         switch (recordedRequest.getPath()){
-          case "/films":
-            filepath += "filmsResponse.json";
+          case "/people":
+            filepath += "peopleResponse.json";
             break;
-          case "/films/1":
-            filepath += "film1Response.json";
+          case "/people/1":
+            filepath += "people1Response.json";
             break;
+//          case "/planets":
+//            filepath += "planetsResponse.json";
+//            break;
+//          case "/planets/1":
+//            filepath += "planet1Response.json";
+//            break;
+//          case "/species":
+//            filepath += "speciesResponse.json";
+//            break;
+//          case "/species/1":
+//            filepath += "species1Response.json";
+//            break;
+//          case "/starships":
+//            filepath += "starshipsResponse.json";
+//            break;
+//          case "/starships/1":
+//            filepath += "starship1Response.json";
+//            break;
+//          case "/vehicles":
+//            filepath += "vehiclesResponse.json";
+//            break;
+//          case "/vehicles/1":
+//            filepath += "vehicle1Response.json";
+//            break;
         }
         try {
           FileInputStream fileInputStream = new FileInputStream(filepath);
@@ -78,95 +99,36 @@ class MoviesControllerTest {
     mockWebServer.shutdown();
   }
 
-  @BeforeEach
-  public void setup() {
-    Film film = new Film();
-    film.setJudul(TESTING);
-    film.setEpisode(1);
-    client.post()
-        .uri("/movies")
-        .body(BodyInserters.fromValue(film))
-        .exchange()
-        .expectStatus()
-        .isOk();
-  }
-
   @Test
-  public void getMoviesTest() {
+  public void getPeoplesTest() {
 
-    List<Film> response = client.get()
-        .uri("/movies")
+    List<People> response = client.get()
+        .uri("/people")
         .exchange()
         .expectStatus()
         .isOk()
-        .expectBody(new ParameterizedTypeReference<List<Film>>() {})
+        .expectBody(new ParameterizedTypeReference<List<People>>() {})
         .returnResult()
         .getResponseBody();
 
-    System.out.println(response.toString());
-
     assertNotNull(response);
     assertTrue(response.size()==2);
-    assertEquals("Judul Film Kedua", response.get(1).getJudul());
-    assertEquals("Judul Film Pertama", response.get(0).getJudul());
+    assertEquals("Luke Skywalker", response.get(0).getName());
+    assertEquals("C-3PO", response.get(1).getName());
   }
 
   @Test
-  public void getMovie() {
-    Film response = client.get()
-            .uri("/movies/1")
+  public void getPeople() {
+    People response = client.get()
+            .uri("/people/1")
             .exchange()
             .expectStatus()
             .isOk()
-            .expectBody(new ParameterizedTypeReference<Film>() {})
+            .expectBody(new ParameterizedTypeReference<People>() {})
             .returnResult()
             .getResponseBody();
 
-    System.out.println(response.toString());
     assertNotNull(response);
-    assertEquals("Judul Film Pertama", response.getJudul());
-    assertEquals(4, response.getEpisode());
+    assertEquals("Luke Skywalker", response.getName());
   }
-
-//  @Test
-//  public void postMovie_failed() {
-//    client.post()
-//        .uri("/movies")
-//        .exchange()
-//        .expectStatus()
-//        .is4xxClientError();
-//  }
-//
-//  @Test
-//  public void getMovieEpisode() {
-//    Movie response = client.get()
-//        .uri(uriBuilder -> uriBuilder.path("/movies-episode")
-//            .queryParam("episode", 1)
-//            .build()
-//        )
-//        .exchange()
-//        .expectStatus()
-//        .isOk()
-//        .expectBody(new ParameterizedTypeReference<Movie>() {})
-//        .returnResult()
-//        .getResponseBody();
-//
-//    assertNotNull(response);
-//  }
-//
-//  @Test
-//  public void deleteMovieEpisode() {
-//    Boolean response = client.delete()
-//            .uri(uriBuilder -> uriBuilder.path("/movies")
-//                    .build()
-//            )
-//            .exchange()
-//            .expectStatus()
-//            .isOk()
-//            .expectBody(new ParameterizedTypeReference<Boolean>() {})
-//            .returnResult()
-//            .getResponseBody();
-//
-//    assertTrue(response);
-//  }
 }

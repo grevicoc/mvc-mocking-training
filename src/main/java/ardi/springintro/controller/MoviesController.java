@@ -1,6 +1,6 @@
 package ardi.springintro.controller;
 
-import ardi.springintro.model.Movie;
+import ardi.springintro.model.Film;
 import ardi.springintro.service.MovieProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,22 +20,22 @@ public class MoviesController {
   private MovieProvider starwarsMovie;
 
   @GetMapping("/movies")
-  public List<Movie> getMovies() {
-    List<Movie> movies = starwarsMovie.getMovies();
+  public List<Film> getMovies() {
+    List<Film> films = starwarsMovie.getMovies();
 
-    return movies;
+    return films;
   }
 
   @GetMapping("/movies/{index}")
-  public Movie getMovie(@PathVariable(name = "index") int urutan) {
-    Movie movie = starwarsMovie.getMovie(urutan);
+  public Film getMovie(@PathVariable(name = "index") int urutan) {
+    Film film = starwarsMovie.getMovie(urutan);
 
-    return movie;
+    return film;
   }
 
   @PostMapping("/movies")
-  public boolean saveMovies(@RequestBody Movie movie) {
-    boolean status = starwarsMovie.saveMovie(movie);
+  public boolean saveMovies(@RequestBody Film film) {
+    boolean status = starwarsMovie.saveMovie(film);
 
     return status;
   }
@@ -48,10 +48,10 @@ public class MoviesController {
   }
 
   @GetMapping("/movies-episode")
-  public Movie getMovieEpisode(@RequestParam(name = "episode") int index) {
-    Movie movie = starwarsMovie.getMovies().get(index-1);
+  public Film getMovieEpisode(@RequestParam(name = "episode") int index) {
+    Film film = starwarsMovie.getMovies().get(index-1);
 
-    return movie;
+    return film;
   }
 
 }

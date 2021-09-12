@@ -1,13 +1,13 @@
 package ardi.springintro.model;
 
-public class SwapiFilm {
+public class FilmResponse {
   String title;
   int episode_id;
 
-  public SwapiFilm() {
+  public FilmResponse() {
   }
 
-  public SwapiFilm(String title, int episode_id) {
+  public FilmResponse(String title, int episode_id) {
     this.title = title;
     this.episode_id = episode_id;
   }

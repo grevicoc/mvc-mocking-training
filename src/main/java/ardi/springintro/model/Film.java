@@ -1,13 +1,13 @@
 package ardi.springintro.model;
 
-public class Movie {
+public class Film {
   String judul;
   int episode;
 
-  public Movie() {
+  public Film() {
   }
 
-  public Movie(String judul, int episode) {
+  public Film(String judul, int episode) {
     this.judul = judul;
     this.episode = episode;
   }
@@ -26,5 +26,10 @@ public class Movie {
 
   public void setEpisode(int episode) {
     this.episode = episode;
+  }
+
+  public String toString(){
+
+    return "Judul: "+ getJudul() + ", Episode: " + getEpisode();
   }
 }
